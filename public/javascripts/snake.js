@@ -11,7 +11,7 @@
       Snake.snake.current_direction = Snake.snake.directions[Math.floor(Math.random(Snake.snake.directions.length))];
       switch (Snake.snake.current_direction) {
         case "L":
-          y = Math.floor(Math.random(canvas._y_pix));
+          y = Math.floor(Math.random(canvas._h_pix) * canvas._h_pix);
           Snake.snake.body = [
             {x: canvas._w_pix - 1, y: y},
             {x: canvas._w_pix,     y: y},
@@ -24,7 +24,7 @@
           ];
           break;
         case "R":
-          y = Math.floor(Math.random(canvas._y_pix));
+          y = Math.floor(Math.random(canvas._h_pix) * canvas._h_pix);
           Snake.snake.body = [
             {x: 0, y: y},
             {x:-1, y: y},
@@ -37,7 +37,7 @@
           ];
           break;
         case "U":
-          x = Math.floor(Math.random(canvas._x_pix));
+          x = Math.floor(Math.random(canvas._w_pix) * canvas._w_pix);
           Snake.snake.body = [
             {x: x, y: canvas._h_pix - 1},
             {x: x, y: canvas._h_pix},
@@ -50,7 +50,7 @@
           ];
           break;
         case "D":
-          x = Math.floor(Math.random(canvas._x_pix));
+          x = Math.floor(Math.random(canvas._w_pix) * canvas._w_pix);
           Snake.snake.body = [
             {x: x, y:  0},
             {x: x, y: -1},
@@ -83,7 +83,7 @@
   };
   Snake.canvas = {
     //size of each dot is 4X4
-    pix: 4,
+    pix: 10,
     snake_length: 8
   };
 
@@ -117,20 +117,25 @@
   }
 
   Snake.draw_canvas = function () {
+    //console.log(Snake.food);
+    //console.log(Snake.snake);
+    //console.log(Snake.canvas);
     Snake.canvas.ctx.fillStyle = "white";
     Snake.canvas.ctx.fillRect(0, 0, Snake.canvas._w, Snake.canvas._h);
-    Snake.paint_cell(Snake.food.x, Snake.food.y);
+    //Snake.paint_cell(Snake.food.x, Snake.food.y);
     for (var l = 0; l < Snake.snake.body.length; l ++) {
-      x= Snake.snake.body[l].x;
-      y= Snake.snake.body[l].y;
+      x = Snake.snake.body[l].x;
+      y = Snake.snake.body[l].y;
       Snake.paint_cell(x, y);
     }
   }
 
   Snake.paint_cell = function (x, y) {
+    console.log(x + " " + y);
+    //Snake.canvas.ctx.fillStyle = "blue";
+    console.log(x * Snake.canvas.pix + " " + y * Snake.canvas.pix);
     Snake.canvas.ctx.fillStyle = "blue";
-    Snake.canvas.ctx.fillRect(x * Snake.canvas.pix, y * Snake.canvas.pix,
-                             (x + 1) * Snake.canvas.pix, (y + 1) *Snake.canvas.pix);
+    Snake.canvas.ctx.fillRect(x * Snake.canvas.pix, y * Snake.canvas.pix, 20, 60);
   }
 
 
